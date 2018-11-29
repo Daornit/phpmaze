@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Lab 5 Javascript</title>
+    <script type="text/javascript">
+      function curcleRaduis(){
+        let s = document.querySelector("#e").value;
+        console.log(s);
+        s=3.14 * s * 2;
+        document.querySelector("#result").innerHTML = s + " Talbaitai Toirog bna";
+      }
+    </script>
+  </head>
+  <body>
+    <form action="#">
+      Radius: <input type="number" id="e" value="" placeholder="set a one radius">
+      <button onclick="curcleRaduis()">calculate</button>
+    </form>
+
+    <p id="result"></p>
+  </body>
+</html>

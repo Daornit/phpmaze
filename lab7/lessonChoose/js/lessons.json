@@ -1,0 +1,62 @@
+[
+  {
+    "index":"s1",
+    "name":"C++",
+    "credit":3,
+    "suudal":4
+  },
+  {
+    "index":"s2",
+    "name":"Java programing",
+    "credit":3,
+    "suudal":30
+  },
+  {
+    "index":"s3",
+    "name":"OOP Basics",
+    "credit":3,
+    "suudal":30
+  },
+  {
+    "index":"s4",
+    "name":"ReactJs programing",
+    "credit":3,
+    "suudal":30
+  },
+  {
+    "index":"s5",
+    "name":"Stracture Of Data",
+    "credit":3,
+    "suudal":30
+  },
+  {
+    "index":"s6",
+    "name":"Mongoling tuuh",
+    "credit":3,
+    "suudal":30
+  },
+  {
+    "index":"s7",
+    "name":"Math 1b",
+    "credit":3,
+    "suudal":30
+  },
+  {
+    "index":"s8",
+    "name":"Math 1a",
+    "credit":3,
+    "suudal":30
+  },
+  {
+    "index":"s9",
+    "name":"Math 1c",
+    "credit":3,
+    "suudal":30
+  },
+  {
+    "index":"s10",
+    "name":"Basic Of Physic",
+    "credit":3,
+    "suudal":30
+  }
+]

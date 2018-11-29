@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Hangman</title>
+    <style media="screen">
+      *{
+        text-align: center;
+      }
+    </style>
+    <script type="text/javascript">
+      let live = 5;
+      let qTime = [20,40,40,30,50];
+      let qArr = [
+        "Mori heden hultee be?",
+        "Google gehed heden useg ordog be?",
+        "PHP helnii og valdate hiih function ii ner?",
+        "Zohoigchiin ner ?",
+        "User interfaceiig hariustsan web developer iin torol?",
+      ];
+      let aArr = [
+        "duruv",
+        "zurgaa",
+        "pregmatch",
+        "batorgil",
+        "front-end",
+      ];
+      let key = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+        't', 'u', 'v', 'w', 'x', 'y', 'z'];
+      let selectedAnswer = {
+        ind: 0,
+        val: '',
+        seconds: 0,
+      };
+      let second = 0;
+      let index = randIndex();
+      let stime;
+      let etime;
+      let coun=0;
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+      function randIndex(){
+        let a = [];
+        a[0] = getRandomInt(4);
+        let randInt = getRandomInt(4);
+        while(randInt==a[0]){
+          randInt = getRandomInt(4);
+        }
+        a.push(randInt);
+        while(randInt==a[0] || randInt==a[1]){
+          randInt = getRandomInt(4);
+        }
+        a.push(randInt);
+        return a;
+      }
+      function validateUseg(useg){
+        let vda = false;
+        document.querySelector(`#b${useg}`).style.visibility = 'hidden';
+        for(let i=0;i<selectedAnswer.val.length;i++){
+          if(key[useg] == selectedAnswer.val[i]){
+            document.querySelector(`#i${i}`).value = selectedAnswer.val[i];
+            vda = true;
+          }
+        }
+        if(!vda){
+          if(live == 0){
+            alert("Tanii ami duusj ta yalagdlaa!!");
+            window.location.replace('http://localhost:4000/hangman.html');
+          }
+          live--;
+          coun++;
+          document.querySelector('#zurag').innerHTML = '<img src="hangman' + coun + '.png" width="150" height="150">';
+          console.log(live + " " + coun + " " + live);
+        }
+
+        let checkInput = '';
+        for(let i=0;i<selectedAnswer.val.length;i++){
+          checkInput = checkInput + document.querySelector(`#i${i}`).value;
+        }
+
+        if(checkInput.valueOf() == selectedAnswer.val.valueOf()){
+
+          alert("Zuv haruilla");
+          selectedAnswer.ind++;
+          if(index[selectedAnswer.ind] != undefined){
+            clearInterval(etime);
+            clearTimeout(stime);
+            second = 0;
+            createQField(index[selectedAnswer.ind]);
+          }
+          else {
+            alert("Ta yallaa");
+            window.location.replace('http://localhost:4000/hangman.html');
+          }
+        }
+        console.log(live + ' ' + checkInput);
+      }
+      function buttonGenarator(){
+        body.innerHTML = "<h1>Doorh Useg nuudees ugee buteen uu!</h1><br>";
+        for(let i=0;i<26;i++){
+          body.innerHTML = body.innerHTML + `<button id="b${i}" onclick="validateUseg(${i})">${key[i]}</button>`
+        }
+        body.innerHTML = body.innerHTML + '<br>';
+        body.innerHTML = body.innerHTML + '<p id="question"></p>';
+        body.innerHTML = body.innerHTML + '<p id="check"></p>';
+        body.innerHTML = body.innerHTML + '<p id="timeDe"></p>';
+        body.innerHTML = body.innerHTML + '<p id="time"></p>';
+        body.innerHTML = body.innerHTML + '<div id="zurag"><img src="hangman0.png" width="150" height="150"></div>';
+      }
+      function createQField(index){
+        stime = setTimeout(gameLost, qTime[index]*1000);
+        for(let i=0;i<26;i++){
+          document.querySelector(`#b${i}`).style.visibility = "visible";
+        }
+        etime = setInterval(incrementSeconds,1000);
+        selectedAnswer.seconds = qTime[index];
+        document.querySelector('#timeDe').innerText = "You have " + qTime[index] +"seconds";
+        selectedAnswer.val = aArr[index];
+        document.querySelector("#question").innerHTML = qArr[index];
+        check = document.querySelector("#check");
+        check.innerHTML = '';
+        for(let i=0;i<aArr[index].length;i++){
+          check.innerHTML = check.innerHTML + `<input type="text" value="" id="i${i}" size="1" disabled>`
+        }
+      }
+      function incrementSeconds() {
+        second += 1;
+        document.querySelector('#time').innerText = second;
+      }
+      function gameLost(){
+        alert("You lose!");
+        window.location.replace('http://localhost:4000/hangman.html');
+      }
+      function start(){
+        body = document.querySelector('#body');
+        console.log(index);
+        buttonGenarator();
+        selectedAnswer.ind = 0;
+        createQField(index[0]);
+      }
+
+    </script>
+  </head>
+
+  <body id="body">
+    <button type="button" onclick="start()">start</button>
+
+  </body>
+</html>

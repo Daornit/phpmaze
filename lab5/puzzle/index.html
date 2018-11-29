@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Puzzle Games</title>
+  <link rel="stylesheet" href="/css/master.css">
+  <script type="text/javascript" src="js/master.js"></script>
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript">
+    function reload(){
+        location.reload();
+    }
+  </script>
+</head>
+
+<body>
+  <h1 id="Result" style="display:none"></h1>
+  <button id="reset" type="button" onclick="reload()" style="display:none">Replay</button>
+  <div class="games">
+    <div class="item" onclick="status.isSelected(1)"></div>
+    <div class="item" onclick="status.isSelected(2)"></div>
+    <div class="item" onclick="status.isSelected(3)"></div>
+    <div class="item" onclick="status.isSelected(4)"></div>
+    <div class="item" onclick="status.isSelected(5)"></div>
+    <div class="item" onclick="status.isSelected(6)"></div>
+    <div class="item" onclick="status.isSelected(7)"></div>
+    <div class="item" onclick="status.isSelected(8)"></div>
+    <div class="item" onclick="status.isSelected(9)"></div>
+    <div class="item" onclick="status.isSelected(10)"></div>
+    <div class="item" onclick="status.isSelected(11)"></div>
+    <div class="item" onclick="status.isSelected(12)"></div>
+    <div class="item" onclick="status.isSelected(13)"></div>
+    <div class="item" onclick="status.isSelected(14)"></div>
+    <div class="item" onclick="status.isSelected(15)"></div>
+    <div class="item" onclick="status.isSelected(16)"></div>
+  </div>
+
+  <input type="button" onclick="status.isSelected(0)" value="Start" id="button">
+</body>
+
+</html>

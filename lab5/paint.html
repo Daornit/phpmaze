@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Table paint</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript">
+    if(Array.prototype.equals)
+        console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+      // attach the .equals method to Array's prototype to call it on any array
+      Array.prototype.equals = function (array) {
+        // if the other array is a falsy value, return
+        if (!array)
+            return false;
+
+        // compare lengths - can save a lot of time
+        if (this.length != array.length)
+            return false;
+
+        for (var i = 0, l=this.length; i < l; i++) {
+            // Check if we have nested arrays
+            if (this[i] instanceof Array && array[i] instanceof Array) {
+                // recurse into the nested arrays
+                if (!this[i].equals(array[i]))
+                    return false;
+            }
+            else if (this[i] != array[i]) {
+                // Warning - two different object instances will never be equal: {x:20} != {x:20}
+                return false;
+            }
+        }
+        return true;
+      }
+      let color = ["white","yellow","blue","orange","grey","red"];
+      let correntColor = "white";
+      let time  = 0;
+      let winMas = [
+        [0,1,1,1,1,1,0],
+        [1,0,0,0,0,0,1],
+        [1,0,2,0,2,0,1],
+        [1,0,0,0,0,0,1],
+        [1,0,0,0,0,0,1],
+        [1,0,4,4,4,0,1],
+        [1,0,0,0,0,0,1],
+        [0,1,1,1,1,1,0],
+      ];
+      function paint(id){
+        document.querySelector(`#a${id}`).style.background = correntColor;
+        let b = checkMas();
+        if(b.equals(winMas)){
+          let r = new Date();
+          let duration = Math.floor(r - time);
+          alert("Ta " + duration*0.001 + " second d yallaa ");
+          window.location.replace('http://localhost:4000/paint.html');
+        }
+      }
+
+      function setColor(id){
+        correntColor = color[id];
+        console.log(correntColor);
+      }
+
+      function checkMas(){
+          let a = [
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+          ];
+
+          for(let i = 0; i<8; i++){
+            for(let j = 0; j<7; j++){
+            let tcolor = document.querySelector(`#a${i*7 + j}`).style.background;
+            switch (tcolor) {
+              case 'yellow':
+                a[i][j] = 1;
+                break;
+              case 'blue':
+                a[i][j] = 2;
+                break;
+              case 'red':
+                a[i][j] = 5;
+                break;
+              case 'grey':
+                a[i][j] = 4;
+                break;
+            }
+          }
+        }
+        console.log(a);
+        return a;
+      }
+      function gameLost(){
+        alert("You lose!");
+        window.location.replace('http://localhost:4000/paint.html');
+      }
+      function tableGenarator(row,col){
+        setTimeout(gameLost, 60000);
+        time = new Date;
+        console.log(time);
+        let id = 0;
+        let table = "<table id=\"tab1\">";
+        for(let i = 0;i<row;i++){
+          table = table + "<tr>";
+          for(let j = 0; j<col; j++){
+            table = table + `<td id="a${id}" onclick="paint(${id})" width="40" height="20"></td>`;
+            id++;
+          }
+          table = table + "</tr>";
+        }
+        table = table + "</table>";
+
+        let colId = 0;
+
+        let colTable = "<table id='cold'><tr>";
+          for(let j = 0; j<6; j++){
+            colTable = colTable + `<td id="c${colId}" onclick="setColor(${colId})" width="40" height="20" style="background:${color[j]}"></td>`;
+            colId++;
+          }
+        colTable = colTable + "</tr></table>";
+
+
+        let tableWin = "<table id=\"win\">";
+          tableWin = tableWin + "<tr>";
+            tableWin = tableWin + `<td width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td width="40" height="20"></td>`;
+          tableWin = tableWin + "</tr>";
+          tableWin = tableWin + "<tr>";
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+          tableWin = tableWin + "</tr>";
+          tableWin = tableWin + "<tr>";
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: blue" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: blue" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+          tableWin = tableWin + "</tr>";
+          tableWin = tableWin + "<tr>";
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+          tableWin = tableWin + "</tr>";
+          tableWin = tableWin + "<tr>";
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+          tableWin = tableWin + "</tr>";
+          tableWin = tableWin + "<tr>";
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: grey" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: grey" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: grey" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+          tableWin = tableWin + "</tr>";
+          tableWin = tableWin + "<tr>";
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: white" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+          tableWin = tableWin + "</tr>";
+          tableWin = tableWin + "<tr>";
+            tableWin = tableWin + `<td width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td style="background: yellow" width="40" height="20"></td>`;
+            tableWin = tableWin + `<td width="40" height="20"></td>`;
+          tableWin = tableWin + "</tr>";
+        tableWin = tableWin + "</table>";
+        document.querySelector("#body").innerHTML = table + "<br>" + colTable + "<br>" + tableWin;
+      }
+
+    </script>
+  </head>
+  <body id="body">
+    <button type="button" onclick="tableGenarator(8,7)">Start</button>
+  </body>
+</html>

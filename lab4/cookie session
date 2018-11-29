@@ -1,0 +1,196 @@
+Cookie --> data hadgaldag zuil buguud ene ni server deer bolon tuhain computer deer bustaan hadgaldag.
+
+ene in 4kb aas baiga bna .
+
+cookie parameters
+
+name -- cookie ner -- username
+
+value -- utga baina -- hannah
+
+expire -- optional -- time() + 29222000 cookie ustagah
+
+path -- OPtional server path
+
+domain -- OPtional ene domain oos irsen cookie ged giig hadgalna
+
+secure -- zuvhun https eer l bolno
+
+httponly -- onptional javascript ees hamgaalna
+
+
+cookie uusgeh
+
+setcookie(name,value,expire,path,domain)
+
+<$PHP
+setcookie("uname", $_POST["name"], time()+36000);
+$>
+<html>
+</html>
+yamar neg yum output hiihees umnu bichigdehees umnu bichne
+
+yaj heregleh ve ?
+
+if(isset($_COOKIE["uname"])){
+  echo "welcome to . $_COOKIE["uname"]" . "! <br>";
+}else{
+  you are not login in
+}
+
+
+
+Session ---> Heregleen oiroltsoo
+Davuu tal browser neesen tuhain uedeel ashiglagdana.
+
+Medeelel amarhan avch boloh arga
+
+session ii ID cookie geer damjih yostoi
+cookie iin deer bichih heregtee
+<$php
+  session_start();
+$>
+
+<html>
+<body>
+$_SESSION['hello'] = 'Hello world';
+</body>
+</html>
+
+uur huudsnaas handah
+
+<$php
+  session_start();
+$>
+<html>
+  $_SESSION['hello'];
+
+
+session ustagah session_destroy();
+enen in session_destroy hiihed varuible uudan bol hadgalagdsan baina
+session_unset();
+ene function in session iii varuible geh met buh utgiig ustgana.
+session default tsag in 24 minut baina.
+
+
+OOP on php
+
+php OOP g demjine
+
+obeict uusgehdee new command ashiglna
+
+$x = new Person;
+
+$object_type = 'Person';
+$y = new $object_type;
+
+
+class Person {
+  var $name;
+  function set_name($new_name){
+   $name = $this -> new_name;
+  }
+
+  function get_name(){
+   return $this -> name;
+  }
+}
+
+hundaltiin turul public protected private
+
+class Person {
+  protected $name;
+  protected $age;
+  function set_name($new_name){
+   $name = $this -> new_name;
+  }
+
+  function get_name(){
+   return $this -> name;
+  }
+}
+
+
+static --> togtmol baih
+
+class HTMLtable{
+  static funtion start(){
+    echo "<table>";
+  }
+  static function end(){
+    echo "/table";
+  }
+
+}
+
+
+$me - new Person;
+$me -> set_name("Russ");
+$me -> get_name();
+$name = $me -> get_name();
+
+Constractor --> anhnii utga onooh function
+
+class Person {
+  protected $name;
+  protected $age;
+    function  __construct($new_name, $new_age){
+
+    }
+}
+Destructors
+ustagah
+
+Inheritance
+
+person oos employee uusgen
+class Employee extends Person{
+  var $salary;
+  function __construct(){
+
+  }
+}
+
+Interface ba Abstract class
+
+obectod zoriulsan interface
+
+abstract class or method
+huuchin zuilsee dahin shinejleh huuhduudee darah
+final geh tulhuureeer method ee dahin tordorhoilj bolno.
+
+
+
+Class bolon object iin functions
+
+$methods = get_class_methods(preson);
+$methods = get_class_methods("person");
+
+$classes = get_declared_classes();
+
+$class = "Person";
+$method = get_class_methods($Class);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d
